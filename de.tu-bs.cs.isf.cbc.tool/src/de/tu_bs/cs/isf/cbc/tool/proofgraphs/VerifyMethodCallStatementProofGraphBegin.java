@@ -18,6 +18,7 @@ import de.tu_bs.cs.isf.cbc.cbcmodel.CbCFormula;
 import de.tu_bs.cs.isf.cbc.cbcmodel.JavaVariable;
 import de.tu_bs.cs.isf.cbc.cbcmodel.JavaVariables;
 import de.tu_bs.cs.isf.cbc.cbcmodel.MethodStatement;
+
 import de.tu_bs.cs.isf.cbc.proorepository.FileSystemProofRepository;
 import de.tu_bs.cs.isf.cbc.proorepository.IProofRepository;
 import de.tu_bs.cs.isf.cbc.statistics.FileNameManager;

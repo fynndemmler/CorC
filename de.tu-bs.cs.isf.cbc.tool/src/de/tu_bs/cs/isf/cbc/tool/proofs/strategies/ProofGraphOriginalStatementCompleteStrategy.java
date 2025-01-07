@@ -11,8 +11,6 @@ import java.util.UUID;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 
-import de.tu_bs.cs.isf.cbc.proorepository.FileSystemProofRepository;
-import de.tu_bs.cs.isf.cbc.proorepository.IProofRepository;
 import de.tu_bs.cs.isf.cbc.statistics.FileNameManager;
 import de.tu_bs.cs.isf.cbc.tool.proofs.IKeYProof;
 import de.tu_bs.cs.isf.cbc.tool.proofs.KeYProofStrategy;
@@ -28,6 +26,7 @@ import de.tu_bs.cs.isf.cbc.util.presenceconditionparser.PresenceConditionParser.
 import de.tu_bs.cs.isf.commands.toolbar.handler.proofgraphs.ProofGraph;
 import de.tu_bs.cs.isf.commands.toolbar.handler.proofgraphs.ProofGraphCollection;
 import de.tu_bs.cs.isf.commands.toolbar.handler.proofgraphs.ProofNode;
+import de.tu_bs.cs.isf.cbc.proorepository.*;
 
 public final class ProofGraphOriginalStatementCompleteStrategy extends KeYProofStrategy implements ProofGraphStrategy{
 	

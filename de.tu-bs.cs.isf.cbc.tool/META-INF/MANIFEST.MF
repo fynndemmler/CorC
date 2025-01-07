@@ -20,7 +20,8 @@ Require-Bundle: org.eclipse.graphiti,
  org.testng;bundle-version="7.4.0",
  de.tu_bs.cs.isf.cbc.parser,
  de.tu_bs.cs.isf.lattice,
- de.tu-bs.cs.isf.cbc.util
+ de.tu-bs.cs.isf.cbc.util,
+ de.tu-bs.cs.isf.cbc.proofrepository;bundle-version="1.0.0"
 Import-Package: de.ovgu.featureide.fm.core.base,
  de.ovgu.featureide.fm.core.io.manager,
  de.tu_bs.cs.isf.cbc.cbcclass,
