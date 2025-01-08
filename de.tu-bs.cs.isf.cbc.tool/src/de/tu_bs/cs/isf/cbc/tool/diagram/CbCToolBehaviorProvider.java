@@ -11,6 +11,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
+import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -19,11 +20,14 @@ import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
+import org.eclipse.graphiti.tb.ContextButtonEntry;
 import org.eclipse.graphiti.tb.ContextMenuEntry;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.eclipse.graphiti.tb.IContextMenuEntry;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+
+import de.kit.tva.cbc.eventsequence.EventSequenceContextUI;
 import de.tu_bs.cs.isf.cbc.cbcclass.Method;
 import de.tu_bs.cs.isf.cbc.cbcmodel.AbstractStatement;
 import de.tu_bs.cs.isf.cbc.cbcmodel.CbCFormula;
@@ -74,7 +78,22 @@ public class CbCToolBehaviorProvider extends DefaultToolBehaviorProvider impleme
 		} else {
 			setGenericContextButtons(data, pe, CONTEXT_BUTTON_DELETE | CONTEXT_BUTTON_UPDATE);
 		}
-
+		/* Event Sequence Context Button */
+		CustomContext cc = new CustomContext(new PictogramElement[] { pe });
+		ICustomFeature[] cf = getFeatureProvider().getCustomFeatures(cc);
+		EventSequenceContextUI eventSequenceFeature = null;
+		for (int i = 0; i < cf.length; i++) {
+			ICustomFeature iCustomFeature = cf[i];
+			if (iCustomFeature instanceof EventSequenceContextUI) {
+				eventSequenceFeature = (EventSequenceContextUI) iCustomFeature;
+				break;
+			}
+		}
+		ContextButtonEntry button = new ContextButtonEntry(eventSequenceFeature, cc);
+		// button.setText("View event sequence information for this refinement.");
+		button.setIconId(CbCImageProvider.IMG_EVENTSEQ_CONTEXT_ICON);
+		// button.addContextButtonMenuEntry(button);
+		data.getDomainSpecificContextButtons().add(button);
 		return data;
 	}
 

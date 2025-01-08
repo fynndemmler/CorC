@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Event Sequence
+Bundle-SymbolicName: de.kit.tva.cbc.eventsequence
+Bundle-Version: 1.0.0
+Export-Package: de.kit.tva.cbc.eventsequence
+Require-Bundle: org.eclipse.graphiti,
+ org.eclipse.equinox.registry,
+ org.eclipse.graphiti.ui,
+ org.eclipse.jface,
+ org.eclipse.ui.workbench,
+ de.tu-bs.cs.isf.cbc.util,
+ org.eclipse.core.runtime;bundle-version="3.31.0",
+ de.tu-bs.cs.isf.cbc.model
+Automatic-Module-Name: de.kit.tva.cbc.eventsequence
+Bundle-RequiredExecutionEnvironment: JavaSE-17
