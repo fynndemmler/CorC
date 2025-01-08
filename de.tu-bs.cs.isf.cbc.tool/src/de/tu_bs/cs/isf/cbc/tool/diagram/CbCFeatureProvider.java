@@ -11,6 +11,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 
+import de.kit.tva.cbc.eventsequence.EventSequenceContextUI;
 import de.tu_bs.cs.isf.cbc.tool.features.ChangeNameOfAssociatedClassFeature;
 import de.tu_bs.cs.isf.cbc.tool.features.ChangeNameOfAssociatedMethodFeature;
 import de.tu_bs.cs.isf.cbc.tool.features.ChangeNameOfFormulaFeature;
@@ -232,6 +233,6 @@ public class CbCFeatureProvider extends DefaultFeatureProviderWithPatterns {
 				new VerifyStatementInlining(this),
 	    		new UpdateDiagramFeature(this),	    		
 				new ShowKeyFileFeature(this),
-	    		new UpdateInformationFlowFeature(this)};
+				new UpdateInformationFlowFeature(this), new EventSequenceContextUI(this) };
 	}
 }

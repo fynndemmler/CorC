@@ -12,6 +12,7 @@ public class CbCImageProvider extends AbstractImageProvider {
     public static final String IMG_UNPROVEN= PREFIX + "unproven";
     public static final String IMG_WARNING= PREFIX + "warning";
     public static final String IMG_INHERITANCE= PREFIX + "inheritance";
+	public static final String IMG_EVENTSEQ_CONTEXT_ICON = PREFIX + "eventSeqContextIcon";
 
     @Override
     protected void addAvailableImages() {
@@ -20,5 +21,6 @@ public class CbCImageProvider extends AbstractImageProvider {
         addImageFilePath(IMG_UNPROVEN, "icons/NORED.gif");
         addImageFilePath(IMG_WARNING, "icons/warning.gif");
         addImageFilePath(IMG_INHERITANCE, "icons/inheritance.gif");
+		addImageFilePath(IMG_EVENTSEQ_CONTEXT_ICON, "icons/event_seq_context_icon.gif");
     }
 }
