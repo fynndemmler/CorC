@@ -117,6 +117,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//CbCProblem/cbcformula"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//CbCProblem/javaVariable"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//CbCProblem/renaming"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//CbCProblem/eventsequenceconditions"/>
     </genClasses>
     <genClasses ecoreClass="cbcmodel.ecore#//StrengthWeakStatement"/>
     <genClasses ecoreClass="cbcmodel.ecore#//OriginalStatement"/>
@@ -134,6 +135,12 @@
     </genClasses>
     <genClasses ecoreClass="cbcmodel.ecore#//AtType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//AtType/name"/>
+    </genClasses>
+    <genClasses ecoreClass="cbcmodel.ecore#//EventSequenceConditions">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//EventSequenceConditions/eventsequencecondition"/>
+    </genClasses>
+    <genClasses ecoreClass="cbcmodel.ecore#//EventSequenceCondition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//EventSequenceCondition/name"/>
     </genClasses>
   </genPackages>
   <genPackages prefix="Cbcclass" basePackage="de.tu_bs.cs.isf.cbc" disposableProviderFactory="true"

@@ -144,6 +144,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="renaming" eType="#//Renaming"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eventsequenceconditions"
+        eType="#//EventSequenceConditions" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StrengthWeakStatement" eSuperTypes="#//AbstractStatement"/>
   <eClassifiers xsi:type="ecore:EEnum" name="VariableKind">
@@ -174,6 +176,13 @@
         eType="#//AtType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AtType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventSequenceConditions">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eventsequencecondition"
+        upperBound="-1" eType="#//EventSequenceCondition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventSequenceCondition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

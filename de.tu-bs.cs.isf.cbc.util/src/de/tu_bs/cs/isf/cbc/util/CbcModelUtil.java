@@ -66,6 +66,11 @@ public class CbcModelUtil {
 		}
 		return null;
 	}
+	
+	public static void saveToModelFile(EObject savee, Diagram d) throws CoreException, IOException {
+		var resource = getResource(d);
+		resource.getContents().add((EObject) savee);
+	}
 
 	public static void saveGlobalConditionsToModelFile(GlobalConditions conditions, Diagram d) throws CoreException, IOException {
 		Resource resource = getResource(d);

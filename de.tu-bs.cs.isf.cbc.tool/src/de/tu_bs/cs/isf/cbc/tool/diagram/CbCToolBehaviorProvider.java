@@ -34,6 +34,7 @@ import de.tu_bs.cs.isf.cbc.cbcmodel.CbCFormula;
 import de.tu_bs.cs.isf.cbc.cbcmodel.SelectionStatement;
 import de.tu_bs.cs.isf.cbc.cbcmodel.impl.AbstractStatementImpl;
 import de.tu_bs.cs.isf.cbc.tool.features.RenameConditionFeature;
+import de.tu_bs.cs.isf.cbc.tool.features.RenameEventSequenceConditionFeature;
 import de.tu_bs.cs.isf.cbc.tool.features.RenameRenamingFeature;
 import de.tu_bs.cs.isf.cbc.tool.features.RenameStatementFeature;
 import de.tu_bs.cs.isf.cbc.tool.features.RenameVariableFeature;
@@ -50,13 +51,12 @@ public class CbCToolBehaviorProvider extends DefaultToolBehaviorProvider impleme
 	/**
 	 * Constructor of the class
 	 * 
-	 * @param diagramTypeProvider
-	 *            The DiagramTypeProvider
+	 * @param diagramTypeProvider The DiagramTypeProvider
 	 */
 	public CbCToolBehaviorProvider(IDiagramTypeProvider diagramTypeProvider) {
 		super(diagramTypeProvider);
-	}	
-	
+	}
+
 	@Override
 	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
 		IContextButtonPadData data = super.getContextButtonPad(context);
@@ -119,6 +119,10 @@ public class CbCToolBehaviorProvider extends DefaultToolBehaviorProvider impleme
 		if (customFeature.canExecute(context)) {
 			return customFeature;
 		}
+		customFeature = new RenameEventSequenceConditionFeature(getFeatureProvider());
+		if (customFeature.canExecute(context)) {
+			return customFeature;
+		}
 		return super.getDoubleClickFeature(context);
 	}
 
@@ -130,7 +134,7 @@ public class CbCToolBehaviorProvider extends DefaultToolBehaviorProvider impleme
 		subMenuTest.setDescription("Test features submenu");
 		// display sub-menu hierarchical or flat
 		subMenuTest.setSubmenu(true);
-		
+
 		ContextMenuEntry subMenuVerify = new ContextMenuEntry(null, context);
 		subMenuVerify.setText("Verify");
 		subMenuVerify.setDescription("Verify features submenu");
@@ -183,10 +187,10 @@ public class CbCToolBehaviorProvider extends DefaultToolBehaviorProvider impleme
 		IFeatureProvider featureProvider = getFeatureProvider();
 		ICreateFeature[] createFeatures = featureProvider.getCreateFeatures();
 		for (ICreateFeature cf : createFeatures) {
-			ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(cf.getCreateName(), cf.getCreateDescription(), cf.getCreateImageId(), cf.getCreateLargeImageId(), cf);
-			if (cf.getCreateName().contains("Variable")
-					|| cf.getCreateName().contains("Condition") || cf.getCreateName().contains("Renam")
-					|| cf.getCreateName().equals("ProductVariant")){
+			ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(cf.getCreateName(),
+					cf.getCreateDescription(), cf.getCreateImageId(), cf.getCreateLargeImageId(), cf);
+			if (cf.getCreateName().contains("Variable") || cf.getCreateName().contains("Condition")
+					|| cf.getCreateName().contains("Renam") || cf.getCreateName().equals("ProductVariant")) {
 				compartmentOtherEntry.addToolEntry(objectCreationToolEntry);
 			} else if (!cf.getCreateName().contentEquals("RefinementList")) {
 				compartmentStatementEntry.addToolEntry(objectCreationToolEntry);
@@ -217,10 +221,12 @@ public class CbCToolBehaviorProvider extends DefaultToolBehaviorProvider impleme
 		} else if (bo instanceof CbCFormula) {
 			String comment = ((CbCFormula) bo).getComment();
 			CbCFormula domainObject = (CbCFormula) bo;
-			if (domainObject.getMethodObj() != null && domainObject.getMethodObj().getParentClass() != null && domainObject.getMethodObj().getParentClass().getInheritsFrom() != null) {
+			if (domainObject.getMethodObj() != null && domainObject.getMethodObj().getParentClass() != null
+					&& domainObject.getMethodObj().getParentClass().getInheritsFrom() != null) {
 				for (Method m : domainObject.getMethodObj().getParentClass().getInheritsFrom().getMethods()) {
 					if (m.getCbcStartTriple().getName().equals(domainObject.getName())) {
-						comment = "This method has a super implementation. See properties view for more information." + (comment == null ? "" : (" // " + comment));
+						comment = "This method has a super implementation. See properties view for more information."
+								+ (comment == null ? "" : (" // " + comment));
 					}
 				}
 			}
