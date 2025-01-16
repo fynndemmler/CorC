@@ -34,7 +34,6 @@ import de.tu_bs.cs.isf.cbc.cbcclass.Visibility;
 import de.tu_bs.cs.isf.cbc.cbcmodel.AbstractStatement;
 import de.tu_bs.cs.isf.cbc.cbcmodel.CbCFormula;
 import de.tu_bs.cs.isf.cbc.cbcmodel.CbcmodelFactory;
-import de.tu_bs.cs.isf.cbc.cbcmodel.CbcmodelPackage;
 import de.tu_bs.cs.isf.cbc.cbcmodel.CompositionTechnique;
 import de.tu_bs.cs.isf.cbc.cbcmodel.Condition;
 import de.tu_bs.cs.isf.cbc.cbcmodel.GlobalConditions;
@@ -47,7 +46,7 @@ import de.tu_bs.cs.isf.cbc.util.consts.MetaNames;
 import de.uka.ilkd.key.proof.Goal;
 import de.uka.ilkd.key.proof.Proof;
 
-public class ProveWithKey {
+public class ProveWithKey extends ProofObservee {
 	public static final String SRC_FOLDER = ""; // Fix für Pfadfehler bei Repetition, Selection und Methodenaufrufen.
 	// War vorher "/src_gen"
 
@@ -86,7 +85,8 @@ public class ProveWithKey {
 
 	public ProveWithKey(AbstractStatement statement, Diagram diagram, IProgressMonitor monitor, IFileUtil fileHandler,
 			String[] config, int configNum, String proofType) {
-		this(statement, diagram, monitor, fileHandler, ProveWithKey.SRC_FOLDER, Arrays.asList(config), configNum, proofType);
+		this(statement, diagram, monitor, fileHandler, ProveWithKey.SRC_FOLDER, Arrays.asList(config), configNum,
+				proofType);
 	}
 
 	public ProveWithKey(AbstractStatement statement, Diagram diagram, IProgressMonitor monitor, IFileUtil fileHandler,
@@ -735,6 +735,7 @@ public class ProveWithKey {
 				monitor, inlining, formula, statement, problem, uri, predicatesForKeY);
 		if (proof != null) {
 			boolean closed = proof.openGoals().isEmpty();
+			// TODO: also handle event sequence conditions results here.
 			if (!closed) {
 				Console.println("  Proof could not be closed.");
 				CounterExampleGenerator generator = new CounterExampleGenerator();
@@ -746,6 +747,11 @@ public class ProveWithKey {
 				}
 			} else {
 				Console.println("  Proof is closed: " + closed + "\n");
+
+				// TODO: EventSeq stuff must start a new proof here, handle the results and then return back here.
+				ProveWithKey.proofInfo = new ProofInfo(formula, statement, problem, closed);
+				ProveWithKey.notifyObservers();
+
 				return closed;
 			}
 		}
@@ -1006,7 +1012,8 @@ public class ProveWithKey {
 
 	private static void readPredicates(List<String> config, CbCFormula formula, String filePath) {
 		predicates = new ArrayList<Predicate>();
-		if (config == null) config = new ArrayList<String>();
+		if (config == null)
+			config = new ArrayList<String>();
 		String projectName = getProjectName(formula, filePath);
 		filePath = filePath.substring(0, filePath.indexOf(projectName)) + projectName + "/predicates.def";
 		List<Predicate> readPredicates = fileHandler.readPredicates(filePath);
@@ -1213,4 +1220,5 @@ public class ProveWithKey {
 		}
 		return condition;
 	}
+
 }

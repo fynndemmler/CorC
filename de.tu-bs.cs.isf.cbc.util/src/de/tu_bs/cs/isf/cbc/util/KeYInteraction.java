@@ -19,7 +19,6 @@ import org.key_project.util.collection.ImmutableSet;
 
 import de.tu_bs.cs.isf.cbc.cbcmodel.AbstractStatement;
 import de.tu_bs.cs.isf.cbc.cbcmodel.CbCFormula;
-import de.tu_bs.cs.isf.cbc.tool.proofgraphs.eval.RunEvaluationForStatementPP;
 import de.tu_bs.cs.isf.cbc.util.statistics.StatDataCollector;
 import de.uka.ilkd.key.control.KeYEnvironment;
 import de.uka.ilkd.key.control.ProofControl;
@@ -44,14 +43,13 @@ import de.uka.ilkd.key.util.KeYTypeUtil;
 import de.uka.ilkd.key.util.MiscTools;
 
 public class KeYInteraction {
-		
-    public final static String ABSTRACT_PROOF_FULL = "abstract_full_proof";
-    public final static String ABSTRACT_PROOF_BEGIN = "abstract_proof_begin";
-    public final static String ABSTRACT_PROOF_COMPLETE = "abstract_proof_complete";
-    public final static String ABSTRACT_T_RESOLVED_PROOF = "abstract_t_resolved_proof";
-    
-    
-    private static String lastErrorMessage = "";
+
+	public final static String ABSTRACT_PROOF_FULL = "abstract_full_proof";
+	public final static String ABSTRACT_PROOF_BEGIN = "abstract_proof_begin";
+	public final static String ABSTRACT_PROOF_COMPLETE = "abstract_proof_complete";
+	public final static String ABSTRACT_T_RESOLVED_PROOF = "abstract_t_resolved_proof";
+
+	private static String lastErrorMessage = "";
 	public static int num = 0;
 
 	public static Proof startKeyProof(String proofType, File location, IProgressMonitor monitor, boolean inlining,
@@ -93,22 +91,23 @@ public class KeYInteraction {
 			sp.setProperty(StrategyProperties.STOPMODE_OPTIONS_KEY, StrategyProperties.STOPMODE_NONCLOSE);
 
 			sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FIRST_ORDER_GOALS_FORBIDDEN, "true");
-            if (proofType.equals(ABSTRACT_PROOF_BEGIN)) {
-            sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FIRST_ORDER_GOALS_FORBIDDEN, "true");
-            sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULE_SETS,
-                forbiddenRules + ",expand_def,cut,cut_direct"); // default
-            sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULES,
-                forbiddenRules + ",definition_axiom,ifthenelse_split"); // default*/
-            } else {
-                if (proofType.equals(ABSTRACT_T_RESOLVED_PROOF)) {
-                    Console.println("Setting Rules");
-                    sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULE_SETS, "expand_def,cut,cut_direct");//
-                    sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULES, "definition_axiom,ifthenelse_split");//
-                } else {
-                    sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULE_SETS, "");
-                    sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULES, "");
-                }
-            }
+			if (proofType.equals(ABSTRACT_PROOF_BEGIN)) {
+				sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FIRST_ORDER_GOALS_FORBIDDEN, "true");
+				sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULE_SETS,
+						forbiddenRules + ",expand_def,cut,cut_direct"); // default
+				sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULES,
+						forbiddenRules + ",definition_axiom,ifthenelse_split"); // default*/
+			} else {
+				if (proofType.equals(ABSTRACT_T_RESOLVED_PROOF)) {
+					Console.println("Setting Rules");
+					sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULE_SETS, "expand_def,cut,cut_direct");//
+					sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULES,
+							"definition_axiom,ifthenelse_split");//
+				} else {
+					sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULE_SETS, "");
+					sp.setProperty(StrategyProperties.ABSTRACT_PROOF_FORBIDDEN_RULES, "");
+				}
+			}
 			// sp.setProperty(StrategyProperties.QUERY_OPTIONS_KEY,
 			// StrategyProperties.QUERY_ON);
 			// sp.setProperty(StrategyProperties.QUERYAXIOM_OPTIONS_KEY,
@@ -155,11 +154,11 @@ public class KeYInteraction {
 				Console.println("  Finish partial proof: " + location.getName());
 				proofControl.runMacro(proof.root(), new CompleteAbstractProofMacro(), null);
 				proofControl.waitWhileAutoMode();
-            case ABSTRACT_T_RESOLVED_PROOF:
-            Console.println("  Start t-resolved proof: " + location.getName());
-            proofControl.runMacro(proof.root(), new NoResolveProofMacro(), null);
-            proofControl.waitWhileAutoMode();
-            break;
+			case ABSTRACT_T_RESOLVED_PROOF:
+				Console.println("  Start t-resolved proof: " + location.getName());
+				proofControl.runMacro(proof.root(), new NoResolveProofMacro(), null);
+				proofControl.waitWhileAutoMode();
+				break;
 			}
 
 			// Show proof result

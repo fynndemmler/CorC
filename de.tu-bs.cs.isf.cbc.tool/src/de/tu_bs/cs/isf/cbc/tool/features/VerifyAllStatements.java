@@ -11,6 +11,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 
+import de.kit.tva.cbc.eventsequence.VerifyEventSequences;
 import de.tu_bs.cs.isf.cbc.cbcclass.Field;
 import de.tu_bs.cs.isf.cbc.cbcmodel.AbstractStatement;
 import de.tu_bs.cs.isf.cbc.cbcmodel.CbCFormula;
@@ -94,6 +95,8 @@ public class VerifyAllStatements extends MyAbstractAsynchronousCustomFeature {
 		IProject project = FileUtil.getProjectFromFileInProject(uri);
 
 		StatDataCollector.checkForId(statement);
+
+		var ves = new VerifyEventSequences(getDiagram());
 
 		verifyStmt = new VerifyStatement(super.getFeatureProvider());
 		genCode = new GenerateCodeForVariationalVerification(super.getFeatureProvider());
@@ -290,24 +293,24 @@ public class VerifyAllStatements extends MyAbstractAsynchronousCustomFeature {
 		return (prove1 && prove2 && true);
 	}
 
-    private static boolean proveAbstractStatement(AbstractStatement statement, Diagram diagram, boolean returnStatement,
-	    IProgressMonitor monitor) {
-	if (!statement.isProven()) {
-	    boolean proven = false;
-	    DiagramPartsExtractor extractor = new DiagramPartsExtractor(diagram);
-	    String uri = diagram.eResource().getURI().toPlatformString(true);
-	    if (!isVariational) {
-		ProveWithKey prove = new ProveWithKey(statement, diagram, monitor, new FileUtil(uri), new ArrayList<>(), 0,
-			KeYInteraction.ABSTRACT_PROOF_FULL);
-		proven = prove.proveStatementWithKey(returnStatement, false,
-			FeatureUtil.getInstance().getCallingClass(URI.createPlatformResourceURI(uri, true)), false);
-	    } else {
-		URI uRi = URI.createPlatformResourceURI(uri, true);
-		String callingFeature = FeatureUtil.getInstance().getCallingFeature(uRi);
-		String callingClass = FeatureUtil.getInstance().getCallingClass(uRi);
-		String callingMethod = FeatureUtil.getInstance().getCallingMethod(uRi);
-		String[][] featureConfigsRelevant = VerifyFeatures.verifyConfig(uRi, callingMethod, true, callingClass,
-			true, null);
+	private static boolean proveAbstractStatement(AbstractStatement statement, Diagram diagram, boolean returnStatement,
+			IProgressMonitor monitor) {
+		if (!statement.isProven()) {
+			boolean proven = false;
+			DiagramPartsExtractor extractor = new DiagramPartsExtractor(diagram);
+			String uri = diagram.eResource().getURI().toPlatformString(true);
+			if (!isVariational) {
+				ProveWithKey prove = new ProveWithKey(statement, diagram, monitor, new FileUtil(uri), new ArrayList<>(),
+						0, KeYInteraction.ABSTRACT_PROOF_FULL);
+				proven = prove.proveStatementWithKey(returnStatement, false,
+						FeatureUtil.getInstance().getCallingClass(URI.createPlatformResourceURI(uri, true)), false);
+			} else {
+				URI uRi = URI.createPlatformResourceURI(uri, true);
+				String callingFeature = FeatureUtil.getInstance().getCallingFeature(uRi);
+				String callingClass = FeatureUtil.getInstance().getCallingClass(uRi);
+				String callingMethod = FeatureUtil.getInstance().getCallingMethod(uRi);
+				String[][] featureConfigsRelevant = VerifyFeatures.verifyConfig(uRi, callingMethod, true, callingClass,
+						true, null);
 				if (featureConfigsRelevant != null) {
 					String[] variants = verifyStmt.generateVariantsStringFromFeatureConfigs(featureConfigsRelevant,
 							callingFeature, callingClass);

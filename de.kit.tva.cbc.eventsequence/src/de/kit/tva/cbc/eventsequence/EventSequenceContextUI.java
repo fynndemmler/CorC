@@ -9,7 +9,7 @@ import org.eclipse.ui.PlatformUI;
 
 import de.tu_bs.cs.isf.cbc.cbcmodel.AbstractStatement;
 
-public class EventSequenceContextUI extends AbstractCustomFeature {
+public class EventSequenceContextUI extends AbstractCustomFeature implements EventSequenceProofObserver {
 	public EventSequenceContextUI(IFeatureProvider fp) {
 		super(fp);
 	}
@@ -48,6 +48,11 @@ public class EventSequenceContextUI extends AbstractCustomFeature {
 	public void execute(ICustomContext context) {
 		MessageDialog.openInformation(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Information",
 				"TODO");
+	}
+
+	@Override
+	public void proofDone(EventSequenceProofInfo escProofInfo) {
+		// TODO: display results so that they are accessible through the context button in the diagrams.
 	}
 
 }
