@@ -25,10 +25,10 @@ public class EventSequenceProblem {
 
 	private String createEventSeqPostCon(EventSequenceConditions esc) {
 		var escPostCon = new StringBuffer();
-		for (var condition : esc.getEventsequencecondition()) {
+		for (var condition : esc.getEventSequenceConditions()) {
 			escPostCon.append("(").append(condition).append(")").append(" & ");
 		}
-		if (esc.getEventsequencecondition().size() > 0) {
+		if (esc.getEventSequenceConditions().size() > 0) {
 			escPostCon.delete(escPostCon.length() - " & ".length(), escPostCon.length());
 		}
 		return escPostCon.toString();
@@ -38,7 +38,7 @@ public class EventSequenceProblem {
 		StringBuffer modifiedProblem = new StringBuffer();
 		var postConStart = this.problem.indexOf("\\>");
 		if (postConStart == -1) {
-			throw new EventSequenceProblemException("The proof problem doesn't not contain a diamond modality.");
+			throw new EventSequenceProblemException("The proof problem doesn't contain a diamond modality.");
 		}
 		modifiedProblem.append(this.problem.substring(0, postConStart));
 		modifiedProblem.append("(");

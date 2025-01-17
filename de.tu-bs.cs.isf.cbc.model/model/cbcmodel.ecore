@@ -56,6 +56,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeableResult" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeableText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeRepresentation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eventSequences" upperBound="-1"
+        eType="#//EventSequence" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SkipStatement" eSuperTypes="#//AbstractStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="CompositionStatement" eSuperTypes="#//AbstractStatement">
@@ -144,7 +146,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="renaming" eType="#//Renaming"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="eventsequenceconditions"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eventSequenceConditions"
         eType="#//EventSequenceConditions" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StrengthWeakStatement" eSuperTypes="#//AbstractStatement"/>
@@ -179,10 +181,28 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventSequenceConditions">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="eventsequencecondition"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eventSequenceConditions"
         upperBound="-1" eType="#//EventSequenceCondition" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventSequenceCondition">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eventSequences" upperBound="-1"
+        eType="#//EventSequence" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventSequence">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="events" upperBound="-1"
+        eType="#//Event" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Event">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodName" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="paramTypes" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+        eType="#//Condition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

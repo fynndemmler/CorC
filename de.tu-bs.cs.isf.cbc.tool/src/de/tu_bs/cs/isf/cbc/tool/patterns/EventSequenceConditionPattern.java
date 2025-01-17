@@ -57,7 +57,7 @@ public class EventSequenceConditionPattern extends IdPattern implements IPattern
 		condition.setName("?");
 		EventSequenceConditions conditions = (EventSequenceConditions) getBusinessObjectForPictogramElement(
 				context.getTargetContainer());
-		conditions.getEventsequencecondition().add(condition);
+		conditions.getEventSequenceConditions().add(condition);
 		updatePictogramElement(context.getTargetContainer());
 		return new Object[] { condition };
 	}

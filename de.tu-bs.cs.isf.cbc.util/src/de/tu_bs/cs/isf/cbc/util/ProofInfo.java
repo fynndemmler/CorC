@@ -2,14 +2,18 @@ package de.tu_bs.cs.isf.cbc.util;
 
 import de.tu_bs.cs.isf.cbc.cbcmodel.AbstractStatement;
 import de.tu_bs.cs.isf.cbc.cbcmodel.CbCFormula;
+import de.tu_bs.cs.isf.cbc.cbcmodel.EventSequenceConditions;
 
 public class ProofInfo {
+	private final EventSequenceConditions esc;
 	private final CbCFormula formula;
 	private final AbstractStatement verifiee;
 	private final String problem;
 	private final boolean isVerified;
 
-	public ProofInfo(CbCFormula formula, AbstractStatement verifiee, String problem, boolean isVerified) {
+	public ProofInfo(EventSequenceConditions esc, CbCFormula formula, AbstractStatement verifiee, String problem,
+			boolean isVerified) {
+		this.esc = esc;
 		this.formula = formula;
 		this.verifiee = verifiee;
 		this.problem = problem;
@@ -42,5 +46,12 @@ public class ProofInfo {
 	 */
 	public boolean isVerified() {
 		return isVerified;
+	}
+
+	/**
+	 * @return the esc
+	 */
+	public EventSequenceConditions getEventSequenceConditions() {
+		return esc;
 	}
 }

@@ -59,6 +59,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//AbstractStatement/typeableResult"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//AbstractStatement/typeableText"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//AbstractStatement/codeRepresentation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//AbstractStatement/eventSequences"/>
       <genOperations ecoreOperation="cbcmodel.ecore#//AbstractStatement/generateID"
           body="if(id==null) id = java.util.UUID.randomUUID().toString();"/>
     </genClasses>
@@ -117,7 +118,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//CbCProblem/cbcformula"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//CbCProblem/javaVariable"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//CbCProblem/renaming"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//CbCProblem/eventsequenceconditions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//CbCProblem/eventSequenceConditions"/>
     </genClasses>
     <genClasses ecoreClass="cbcmodel.ecore#//StrengthWeakStatement"/>
     <genClasses ecoreClass="cbcmodel.ecore#//OriginalStatement"/>
@@ -137,10 +138,22 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//AtType/name"/>
     </genClasses>
     <genClasses ecoreClass="cbcmodel.ecore#//EventSequenceConditions">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//EventSequenceConditions/eventsequencecondition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//EventSequenceConditions/eventSequenceConditions"/>
     </genClasses>
     <genClasses ecoreClass="cbcmodel.ecore#//EventSequenceCondition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//EventSequenceCondition/eventSequences"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//EventSequenceCondition/name"/>
+    </genClasses>
+    <genClasses ecoreClass="cbcmodel.ecore#//EventSequence">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//EventSequence/events"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//EventSequence/name"/>
+    </genClasses>
+    <genClasses ecoreClass="cbcmodel.ecore#//Event">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//Event/className"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//Event/methodName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//Event/paramTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference cbcmodel.ecore#//Event/condition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute cbcmodel.ecore#//Event/name"/>
     </genClasses>
   </genPackages>
   <genPackages prefix="Cbcclass" basePackage="de.tu_bs.cs.isf.cbc" disposableProviderFactory="true"

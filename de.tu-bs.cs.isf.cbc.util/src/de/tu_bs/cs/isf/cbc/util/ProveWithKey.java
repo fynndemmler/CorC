@@ -36,6 +36,7 @@ import de.tu_bs.cs.isf.cbc.cbcmodel.CbCFormula;
 import de.tu_bs.cs.isf.cbc.cbcmodel.CbcmodelFactory;
 import de.tu_bs.cs.isf.cbc.cbcmodel.CompositionTechnique;
 import de.tu_bs.cs.isf.cbc.cbcmodel.Condition;
+import de.tu_bs.cs.isf.cbc.cbcmodel.EventSequenceConditions;
 import de.tu_bs.cs.isf.cbc.cbcmodel.GlobalConditions;
 import de.tu_bs.cs.isf.cbc.cbcmodel.JavaVariable;
 import de.tu_bs.cs.isf.cbc.cbcmodel.JavaVariables;
@@ -69,6 +70,7 @@ public class ProveWithKey extends ProofObservee {
 	private IProgressMonitor monitor;
 	private String uri;
 	private CbCFormula formula;
+	private static EventSequenceConditions esc = null;
 	private static IFileUtil fileHandler;
 	private String sourceFolder;
 	private boolean isVariationalProject;
@@ -115,6 +117,7 @@ public class ProveWithKey extends ProofObservee {
 		conds = extractor.getConds();
 		renaming = extractor.getRenaming();
 		formula = extractor.getFormula();
+		esc = extractor.getEventSequenceConditions();
 		this.uri = diagramToProve.eResource().getURI().toPlatformString(true);
 
 		if (uri.contains(MetaNames.FOLDER_NAME)) {
@@ -747,9 +750,7 @@ public class ProveWithKey extends ProofObservee {
 				}
 			} else {
 				Console.println("  Proof is closed: " + closed + "\n");
-
-				// TODO: EventSeq stuff must start a new proof here, handle the results and then return back here.
-				ProveWithKey.proofInfo = new ProofInfo(formula, statement, problem, closed);
+				ProveWithKey.proofInfo = new ProofInfo(ProveWithKey.esc, formula, statement, problem, closed);
 				ProveWithKey.notifyObservers();
 
 				return closed;

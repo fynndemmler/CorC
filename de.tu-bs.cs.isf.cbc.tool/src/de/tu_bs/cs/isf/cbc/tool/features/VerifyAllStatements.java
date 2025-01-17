@@ -96,7 +96,9 @@ public class VerifyAllStatements extends MyAbstractAsynchronousCustomFeature {
 
 		StatDataCollector.checkForId(statement);
 
-		var ves = new VerifyEventSequences(getDiagram());
+		// Register event sequence verifier module that observes proofs and acts if there are any event
+		// sequence conditions present.
+		var ves = new VerifyEventSequences();
 
 		verifyStmt = new VerifyStatement(super.getFeatureProvider());
 		genCode = new GenerateCodeForVariationalVerification(super.getFeatureProvider());

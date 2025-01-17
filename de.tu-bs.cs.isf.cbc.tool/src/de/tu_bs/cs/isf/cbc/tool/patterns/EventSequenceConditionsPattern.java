@@ -86,10 +86,10 @@ public class EventSequenceConditionsPattern extends IdPattern implements IPatter
 	public Object[] create(ICreateContext context) {
 		var eSeqCons = CbcmodelFactory.eINSTANCE.createEventSequenceConditions();
 		/*
-		var eSeqDummyCon = CbcmodelFactory.eINSTANCE.createEventSequenceCondition();
-		eSeqDummyCon.setName("(Add new event sequence conditions)");
-		eSeqCons.getEventsequencecondition().add(eSeqDummyCon);
-		*/
+		 * var eSeqDummyCon = CbcmodelFactory.eINSTANCE.createEventSequenceCondition();
+		 * eSeqDummyCon.setName("(Add new event sequence conditions)");
+		 * eSeqCons.getEventsequencecondition().add(eSeqDummyCon);
+		 */
 
 		try {
 			CbcModelUtil.saveToModelFile(eSeqCons, getDiagram());
@@ -159,8 +159,8 @@ public class EventSequenceConditionsPattern extends IdPattern implements IPatter
 				context.getRootPictogramElement());
 		GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
 		int height = mainRectangle.getHeight();
-		if (eventSeqCons.getEventsequencecondition().size() >= 1) {
-			height = height / (eventSeqCons.getEventsequencecondition().size() + 1);
+		if (eventSeqCons.getEventSequenceConditions().size() >= 1) {
+			height = height / (eventSeqCons.getEventSequenceConditions().size() + 1);
 		}
 
 		if (id.equals(ID_NAME_TEXT)) {
@@ -187,9 +187,9 @@ public class EventSequenceConditionsPattern extends IdPattern implements IPatter
 		if (id.equals(ID_MAIN_RECTANGLE)) {
 			ContainerShape containerShape = (ContainerShape) context.getPictogramElement();
 			var conditions = (EventSequenceConditions) context.getDomainObject();
-			if (containerShape.getChildren().size() - 2 != conditions.getEventsequencecondition().size()) {
+			if (containerShape.getChildren().size() - 2 != conditions.getEventSequenceConditions().size()) {
 				return Reason.createTrueReason(
-						"Number of Conditions differ. Expected: " + conditions.getEventsequencecondition().size() + " "
+						"Number of Conditions differ. Expected: " + conditions.getEventSequenceConditions().size() + " "
 								+ (containerShape.getChildren().size() - 2));
 			}
 		}
@@ -200,7 +200,7 @@ public class EventSequenceConditionsPattern extends IdPattern implements IPatter
 	protected boolean update(IdUpdateContext context, String id) {
 		if (id.equals(ID_MAIN_RECTANGLE)) {
 			EList<EventSequenceCondition> conditions = ((EventSequenceConditions) context.getDomainObject())
-					.getEventsequencecondition();
+					.getEventSequenceConditions();
 			while (((ContainerShape) context.getPictogramElement()).getChildren().size() - 2 < conditions.size()) {
 				int newIndex = ((ContainerShape) context.getPictogramElement()).getChildren().size() - 2;
 				var condition = conditions.get(newIndex);
