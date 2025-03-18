@@ -2,7 +2,6 @@ package de.kit.tva.cbc.eventsequence;
 
 import de.tu_bs.cs.isf.cbc.cbcmodel.CbcmodelFactory;
 import de.tu_bs.cs.isf.cbc.cbcmodel.EventSequenceConditions;
-import de.tu_bs.cs.isf.cbc.util.CodeHandler;
 
 /**
  * Given the contents of a .key file, this class converts the results of a proof in KeY back into a
@@ -28,18 +27,7 @@ public class EventSequenceProofResultConverter {
 	 */
 	public EventSequenceConditions convert(String proofResult) {
 		EventSequenceConditions newEsc = CbcmodelFactory.eINSTANCE.createEventSequenceConditions();
-		String helper = "";
-		int startBracketIndex = -1;
-		int endBracketIndex = -1;
-		String curEventSeq = "";
-		while (proofResult.indexOf(VerifyEventSequences.EVENT_SEQ_ID) != -1) {
-			helper = proofResult.substring(0, proofResult.indexOf(VerifyEventSequences.EVENT_SEQ_ID));
-			startBracketIndex = helper.length() + VerifyEventSequences.EVENT_SEQ_ID.length();
-			endBracketIndex = CodeHandler.findClosingBracketIndex(proofResult, startBracketIndex, '(');
-			curEventSeq = proofResult.substring(startBracketIndex - VerifyEventSequences.EVENT_SEQ_ID.length(),
-					endBracketIndex);
-			proofResult = proofResult.substring(endBracketIndex);
-		}
+
 		return newEsc;
 	}
 }

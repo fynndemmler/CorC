@@ -45,6 +45,8 @@ public class VerifyEventSequences extends EventSequenceProofObservee implements 
 		try {
 			var esProblem = new EventSequenceProblem(proofInfo.getEventSequenceConditions(), proofInfo.getProblem());
 			var newProofObligation = esProblem.getModifiedProblem();
+			//var result = startKeYProof(newProofObligation);
+
 			/* TODO: parse the results from KeY back into
 			CorC (useful for parsing: We know that there are a // specific // number of
 			logical ands that connect the conditions on the highest level, therefore

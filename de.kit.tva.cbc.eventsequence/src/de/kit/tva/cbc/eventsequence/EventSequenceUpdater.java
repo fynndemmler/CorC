@@ -18,7 +18,7 @@ public class EventSequenceUpdater implements ProofObserver {
 
 	@Override
 	public void proofDone(ProofInfo proofInfo) {
-
+		//proofInfo.g
 	}
 
 }
